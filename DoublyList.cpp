@@ -261,7 +261,7 @@ choose: // List of options to perform operations
         traverse();
         goto choose;
     case 8:
-        cout << "\nBYE BUDYYY...!! :(" << endl;
+        cout << "\nBYE BUDYYY...! :(" << endl;
         break;
     default:
         cout << "\nProvide a valid choice" << endl;
