@@ -131,6 +131,7 @@ void removeDuplicate()
     else
         traverse();
 }
+
 // Main function
 int main()
 {
