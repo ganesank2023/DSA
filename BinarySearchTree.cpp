@@ -12,11 +12,70 @@ struct node
 
 struct node *root;
 
-// // Delete node
-// void deleteNode(struct node *node, int data)
-// {
+// Delete node
+node *deleteNode(struct node *root, int data)
+{
+    // Base case
+    if (root == NULL)
+        return root;
 
-// }
+    // Recursive calls for ancestors of
+    // node to be deleted
+    if (root->data > data)
+    {
+        root->left = deleteNode(root->left, data);
+        return root;
+    }
+    else if (root->data < data)
+    {
+        root->right = deleteNode(root->right, data);
+        return root;
+    }
+
+    // We reach here when root is the node
+    // to be deleted.
+
+    // If one of the children is empty
+    if (root->left == NULL)
+    {
+        node *temp = root->right;
+        delete root;
+        return temp;
+    }
+    else if (root->right == NULL)
+    {
+        node *temp = root->left;
+        delete root;
+        return temp;
+    }
+
+    // If both children exist
+    else
+    {
+
+        node *succParent = root;
+
+        // Find successor
+        node *succ = root->right;
+        while (succ->left != NULL)
+        {
+            succParent = succ;
+            succ = succ->left;
+        }
+
+        if (succParent != root)
+            succParent->left = succ->right;
+        else
+            succParent->right = succ->right;
+
+        // Copy Successor Data to root
+        root->data = succ->data;
+
+        // Delete Successor and return root
+        delete succ;
+        return root;
+    }
+}
 
 // Level order traversal
 void levelOrder(struct node *node)
@@ -134,7 +193,7 @@ int main()
 {
     int choice, data;
 choose:
-    cout << "\n1. Insert Data \n2. Inorder traversal \n3. Preorder traversal \n4. Postorder traversal \n5. Level order traversal \n6. Common ancestor of two nodes \n7. Height of the bst \n8. Exit" << endl;
+    cout << "\n1. Insert Data \n2. Inorder traversal \n3. Preorder traversal \n4. Postorder traversal \n5. Level order traversal \n6. Common ancestor of two nodes \n7. Height of the bst \n8.Delete an element \n9. Exit" << endl;
     cout << "\nProvide a choice: ";
     cin >> choice;
     switch (choice)
@@ -178,13 +237,15 @@ choose:
         cout << "\nHeight of the tree: " << findHeight(root) << endl;
         goto choose;
         break;
-    // case 8:
-    //     cout << "\nEnter a data: ";
-    //     cin >> data;
-    //     deleteNode(root, data);
-    //     goto choose;
-    //     break;
     case 8:
+        cout << "\nEnter a data: ";
+        cin >> data;
+        deleteNode(root, data);
+        cout << "\n"
+             << data << " deleted successfully" << endl;
+        goto choose;
+        break;
+    case 9:
         cout << "\nBye buddy..." << endl;
         break;
     default:
