@@ -1,27 +1,37 @@
+// C++ program for printing vertical order of a given binary tree
 #include <iostream>
+#include <vector>
+#include <map>
 using namespace std;
 
-// Node creation
+struct node *root;
+
 struct node
 {
     int data;
-    struct node *left;
-    struct node *right;
+    node *left, *right;
 };
 
-// Root
-struct node *root;
-
-// Add nodes
-int addNodes(struct node *node)
+void getVerticalOrder(node *root, int hd, map<int, vector<int>> &m)
 {
-    if (node->left == node->right)
-        return node->data;
-    if (node->right == NULL)
-        return addNodes(node->left);
-    if (node->left == NULL)
-        return addNodes(node->right);
-    return addNodes(node->left) + addNodes(node->right);
+    if (root == NULL)
+        return;
+    m[hd].push_back(root->data);
+    getVerticalOrder(root->left, hd - 1, m);
+    getVerticalOrder(root->right, hd + 1, m);
+}
+void printVerticalOrder(node *root)
+{
+    map<int, vector<int>> m;
+    int hd = 0;
+    getVerticalOrder(root, hd, m);
+    map<int, vector<int>>::iterator it;
+    for (it = m.begin(); it != m.end(); it++)
+    {
+        for (int i = 0; i < it->second.size(); ++i)
+            cout << it->second[i] << " ";
+        cout << endl;
+    }
 }
 
 // Insertion
@@ -60,7 +70,7 @@ int main()
     int data, choice;
 choose:
     cout << "\n1. Insert data"
-         << "\n2. Find sum" << endl;
+         << "\n2. vertical order" << endl;
     cout << "\nProvide a choice: ";
     cin >> choice;
 
@@ -74,8 +84,8 @@ choose:
         cout << endl;
         break;
     case 2:
-        int result = addNodes(root);
-        cout << "\nSum of leaf nodes: " << result << endl;
+        cout << "\nVertical order of the tree is: " << endl;
+        printVerticalOrder(root);
         break;
     default:
         cout << "\nProvide a valid choice";
