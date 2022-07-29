@@ -21,7 +21,6 @@ int main()
         cout << "\nEnter destination: ";
         cin >> v;
         arr[u - 1][v - 1] = 1;
-        arr[v - 1][u - 1] = 1;
     }
     for (int i = 0; i < n; i++)
     {

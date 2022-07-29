@@ -6,7 +6,6 @@ using namespace std;
 void addEdges(vector<int> adj[], int s, int d)
 {
     adj[s - 1].push_back(d);
-    adj[d - 1].push_back(s);
 }
 
 int main()
