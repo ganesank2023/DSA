@@ -1,8 +1,6 @@
 #include <iostream>
 using namespace std;
 
-// Global variables
-
 struct node *head = NULL;
 int length = 0;
 
