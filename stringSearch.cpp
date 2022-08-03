@@ -45,7 +45,6 @@ int main()
         {'c', 'O', 'D', 'K', 'T', 'L'},
     };
     string word = "CODINGMART";
-
     for (int i = 0; i < board.size(); i++)
     {
         for (int j = 0; j < board[0].size(); j++)
